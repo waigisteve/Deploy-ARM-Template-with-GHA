@@ -13,11 +13,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Azure CLI
-        uses: azure/setup-azure@v1
-        with:
-          azure-subscription: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
       - name: Login to Azure
         uses: azure/login@v1
         with:
@@ -30,8 +25,3 @@ jobs:
       - name: Deploy ARM template
         run: |
           az deployment group create --resource-group AZB8-RG --template-file ./azuredeploy.json
-        env:
-          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
